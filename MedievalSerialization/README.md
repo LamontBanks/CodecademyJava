@@ -8,3 +8,6 @@ Welcome to Waveside Game Studio, creators of MMOTBRPGFUWJVMs, the ultra concise 
 Catchy, we know, but it’s your first day on the job and there’s no time to dwell on clever acronyms and your marketing career aspirations.
 
 You’ve been asked to add the game intro, saving, and loading functionality to the company’s new Medieval Game using serialization. Your Tech Lead added you to the git collaboration and you see the files in the editor before you, let’s jump right in…
+
+# Tasks
+- Review files
