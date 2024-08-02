@@ -1,9 +1,14 @@
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.Objects;
 
 public class MedievalGame {
 
     /* Instance Variables */
+    private Player player;
 
     /* Main Method */
     public static void main(String[] args) {
@@ -50,7 +55,18 @@ public class MedievalGame {
 
     private void save() {
         // Add save functionality here
+        String filename = player.getName() + ".svr";
 
+        try {
+            FileOutputStream userSaveFile = new FileOutputStream(filename);
+            ObjectOutputStream playerSaver = new ObjectOutputStream(userSaveFile);
+            playerSaver.writeObject(player);
+            playerSaver.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     } // End of save
 
     private Player load(String playerName, Scanner console) {
