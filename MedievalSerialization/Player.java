@@ -1,6 +1,9 @@
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
 
     /* Class Variables */
+    private static final long serialVersionUID = 1L;
 
     /* Instance Variables */
     private final String name;

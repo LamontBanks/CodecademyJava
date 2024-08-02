@@ -1,6 +1,9 @@
-public class Weapon {
+import java.io.Serializable;
+
+public class Weapon implements Serializable {
 
     /* Class Variables */
+    private static final long serialVersionUID = 1L;
 
     /* Instance Variables */
     private final String name;
