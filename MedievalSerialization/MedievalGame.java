@@ -53,31 +53,48 @@ public class MedievalGame {
     private Player start(Scanner console) {
         Art.homeScreen();
         addShortDelay();
-
         System.out.println("Welcome!");
-        addMediumDelay();
+        addShortDelay();
 
         // Continue or start new game
         System.out.println("Enter 'y' to load a game, 'n' to start a new game: ");
         System.out.print("Press CTRL+C to quit: ");
         String answer = console.next().toLowerCase();
 
+        // Load player file or create new player
+        // Reject invalid input
         while (true) {
-
             if (answer.equals("y")) {
-                System.out.println("You entered: " + answer);
-                break;
+                System.out.print("CONTINUE: Enter the name of the player to load data (case-sensitive): ");
+                String playerName = console.next();
+                System.out.println("User entered: " + playerName);
+
+                if (playerName != "" && playerName != null) {
+                    player = load(playerName, console);
+                    break;
+                } else {
+                    continue;
+                }
             }
 
             else if (answer.equals("n")) {
                 System.out.println("You entered: " + answer);
-                break;
+                System.out.print("New Game: Enter the name of the player (case-sensitive): ");
+                String playerName = console.next();
+                System.out.println("User entered: " + playerName);
+
+                if (playerName != "" && playerName != null) {
+                    player = new Player(playerName);
+                    break;
+                } else {
+                    continue;
+                }
             }
 
             else {
                 System.out.println("Unrecognized option: " + answer);
                 addMediumDelay();
-    
+
                 System.out.println("Enter 'y' to load a game, 'n' to start a new game: ");
                 System.out.print("Press CTRL+C to quit: ");
 
@@ -85,8 +102,6 @@ public class MedievalGame {
                 answer = console.next().toLowerCase();
             }
         }
-
-        Player player = new Player("Test");
 
         return player;
     } // End of start
