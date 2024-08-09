@@ -21,39 +21,74 @@ public class MedievalGame {
 
         game.player = game.start(console);
 
-        game.addDelay(500);
+        game.addShortDelay();
         System.out.println("\nLet's take a quick look at you to make sure you're ready to head out the door.");
         System.out.println(game.player);
 
-        game.addDelay(1000);
+        game.addShortDelay();
         System.out.println("\nWell, you're off to a good start, let's get your game saved so we don't lose it.");
         game.save();
 
-        game.addDelay(3000);
+        game.addLongDelay();
         System.out.println("We just saved your game...");
         System.out.println("Now we are going to try to load your character to make sure the save worked...");
 
-        game.addDelay(1000);
+        game.addShortDelay();
         System.out.println("Deleting character...");
         String charName = game.player.getName();
         game.player = null;
 
-        game.addDelay(1500);
+        game.addMediumDelay();
         game.player = game.load(charName, console);
         System.out.println("Loading character...");
 
-        game.addDelay(2000);
+        game.addMediumDelay();
         System.out.println("Now let's print out your character again to make sure everything loaded:");
 
-        game.addDelay(500);
+        game.addShortDelay();
         System.out.println(game.player);
     } // End of main
 
     /* Instance Methods */
     private Player start(Scanner console) {
-        // Add start functionality here
+        Art.homeScreen();
+        addShortDelay();
 
-        return new Player("Test");
+        System.out.println("Welcome!");
+        addMediumDelay();
+
+        // Continue or start new game
+        System.out.println("Enter 'y' to load a game, 'n' to start a new game: ");
+        System.out.print("Press CTRL+C to quit: ");
+        String answer = console.next().toLowerCase();
+
+        while (true) {
+
+            if (answer.equals("y")) {
+                System.out.println("You entered: " + answer);
+                break;
+            }
+
+            else if (answer.equals("n")) {
+                System.out.println("You entered: " + answer);
+                break;
+            }
+
+            else {
+                System.out.println("Unrecognized option: " + answer);
+                addMediumDelay();
+    
+                System.out.println("Enter 'y' to load a game, 'n' to start a new game: ");
+                System.out.print("Press CTRL+C to quit: ");
+
+                answer = "";
+                answer = console.next().toLowerCase();
+            }
+        }
+
+        Player player = new Player("Test");
+
+        return player;
     } // End of start
 
     private void save() {
@@ -86,9 +121,9 @@ public class MedievalGame {
         } catch (FileNotFoundException e) {
             addDelay(1500);
             System.out.println("Error: Could not find save file for player [" + playerName + "].");
-            addDelay(3000);
+            addLongDelay();
             System.out.println("Creating new player: " + playerName);
-            addDelay(2000);
+            addMediumDelay();
             loadedPlayer = new Player(playerName);
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,5 +143,17 @@ public class MedievalGame {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private void addShortDelay() {
+        this.addDelay(1000);
+    }
+
+    private void addMediumDelay() {
+        this.addDelay(2000);
+    }
+
+    private void addLongDelay() {
+        this.addDelay(3000);
     }
 }
