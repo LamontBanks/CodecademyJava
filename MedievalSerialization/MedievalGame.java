@@ -1,7 +1,10 @@
 import java.util.Scanner;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Objects;
 
@@ -26,7 +29,7 @@ public class MedievalGame {
         System.out.println("\nWell, you're off to a good start, let's get your game saved so we don't lose it.");
         game.save();
 
-        game.addDelay(2000);
+        game.addDelay(3000);
         System.out.println("We just saved your game...");
         System.out.println("Now we are going to try to load your character to make sure the save worked...");
 
@@ -71,8 +74,30 @@ public class MedievalGame {
 
     private Player load(String playerName, Scanner console) {
         // Add load functionality here
+        Player loadedPlayer = null;
 
-        return new Player("Test");
+        String filename = player + ".svr";
+        try {
+            FileInputStream userSaveFile = new FileInputStream(filename);
+            ObjectInputStream playerLoader = new ObjectInputStream(userSaveFile);
+            playerLoader.close();
+
+            loadedPlayer = (Player) playerLoader.readObject();
+        } catch (FileNotFoundException e) {
+            addDelay(1500);
+            System.out.println("Error: Could not find save file for player [" + playerName + "].");
+            addDelay(3000);
+            System.out.println("Creating new player: " + playerName);
+            addDelay(2000);
+            loadedPlayer = new Player(playerName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return (Player) loadedPlayer;
+
     } // End of load
 
     // Adds a delay to the console so it seems like the computer is "thinking"

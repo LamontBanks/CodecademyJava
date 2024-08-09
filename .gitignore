@@ -1,1 +1,4 @@
 **/*.class
+
+# "Save file" extension for Medieval game
+MedievalSerialization/*.svr
